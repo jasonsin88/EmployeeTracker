@@ -17,11 +17,11 @@ connection.connect(err => {
   console.log('connected as id ' + connection.threadId);
   console.log(`
  _______             _                           ______                                      
-|  _____)           | |                         |      \                                     
-| |___   ____  ____ | | ___  _   _  ____ ____   |  /-\  | ____ ____   ____  ____  ____  ____ 
-|  ___) |    \|  _ \| |/ _ \| | | |/ _  ) _  )  | || || |/ _  |  _ \ / _  |/ _  |/ _  )/ ___)
+|  _____)           | |                         |       |                                     
+| |___   ____  ____ | | ___  _   _  ____ ____   |  /-|  | ____ ____   ____  ____  ____  ____ 
+|  ___) |     |  _  | |/ _  | | | |/ _  ) _  )  | || || |/ _  |  _ \ / _  |/ _  |/ _  )/ ___)
 | |_____| | | | | | | | |_| | |_| ( (/ ( (/ /   | || || ( ( | | | | ( ( | ( ( | ( (/ /| |    
-|_______)_|_|_| ||_/|_|\___/ \__  |\____)____)  |_||_||_|\_||_|_| |_|\_||_|\_|| |\____)_|    
+|_______)_|_|_| ||_/|_||___/ |__  ||____)____)  |_||_||_||_||_|_| |_||_||_||_|| ||____)_|    
               |_|           (____/                                        (_____|            `)
   // runs the app
   promptUser();
@@ -101,11 +101,11 @@ showDepartments = () => {
     console.log('Showing all departments...\n');
     const sql = 'SELECT department.id AS id, department.name AS department FROM department';
 
-    connection.promise().query(sql, (err, rows) => {
-        if (err) throw err;
-        console.table(rows);
+    connection.promise().query(sql)
+        .then((res) => {
+        console.table(res);
         promptUser();
-    });
+        })
 };
 
 // Function to show all roles
@@ -113,11 +113,11 @@ showRoles = () => {
     console.log('Showing all roles...\n');
     const sql = 'SELECT role.id, role.title, department.name AS department FROM role INNER JOIN department ON role.department_id = department.id';
 
-    connection.promise().query(sql, (err, rows) => {
-        if (err) throw err;
-        console.table(rows);
+    connection.promise().query(sql)
+        .then((res) => {
+        console.table(res);
         promptUser();
-    })
+        })
 };
 
 // function to show all employees 
