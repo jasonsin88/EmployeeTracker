@@ -11,7 +11,7 @@
     "author": "Jason Sin",
     "license": "ISC",
     "dependencies": {
-        "chalk": "^3.3.3",
+        "chalk": "^4.1.2",
         "console.table": "^0.10.0",
         "express": "^4.17.1",
         "inquirer": "^8.2.4",

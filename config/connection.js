@@ -16,7 +16,7 @@ connection.connect((err) => {
         return;
     }
 
-    console.log(chalk.green(`Connected to db. ThreadID: ${connection.threadId}`));
+    console.log(chalk.red(`Connected to db. ThreadID: ${connection.threadId}`));
 })
 
 module.exports = connection;

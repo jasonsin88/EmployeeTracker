@@ -47,8 +47,6 @@ console.log(chalk.magenta(`
 ));
   
 // runs the app
-startApp();
-
 const startApp = () => {
   inquirer.prompt({
       name: 'menuChoice',
@@ -390,3 +388,5 @@ const removeDept = () => {
       })
   })
 }
+
+startApp();
