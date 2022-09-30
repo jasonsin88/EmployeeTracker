@@ -1,4 +1,4 @@
-USE employee_db;
+USE employees_db;
 
 INSERT INTO department (name)
 VALUES 
@@ -29,3 +29,5 @@ VALUES
 ('Zac', 'Efron', 5, 5),
 ('Gregg', 'Sulkin', 7, null),
 ('Grant', 'Gustin', 8, 7);
+
+UPDATE `employee_db`.`employees` SET `manager_id` = '1' WHERE (`id` > '1');
