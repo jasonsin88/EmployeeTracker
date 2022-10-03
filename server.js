@@ -49,7 +49,7 @@ console.log(chalk.magenta(`
 // runs the app
 const startApp = () => {
   inquirer.prompt({
-      name: 'menuChoice',
+      name: 'menu',
       type: 'list',
       message: 'Select an option',
       choices: startScreen
@@ -96,4 +96,49 @@ const startApp = () => {
               break;
       }
   })
+}
+
+// function to show all employees
+const showAll = () => {
+    connection.query(allEmployeeQuery, (err, results) => {
+        if (err) throw err;
+        console.log(' ');
+        console.table(chalk.yellow('All Employees'), results)
+        startApp();
+    })
+}
+
+// function to show by departments
+const showByDept = () => {
+    const deptQuery = 'SELECT * FROM departments';
+    connection.query(deptQuery, (err, results) => {
+        if (err) throw err;
+        inquirer.prompt([
+            {
+                name: 'dept',
+                type: 'list',
+                choices: function () {
+                    let choiceArray = results.map(choice => choice.department_name)
+                    return choiceArray;
+                },
+                message: 'Select a Department to view:'
+            }
+        ])
+        .then((answer) => {
+            let chosenDept;
+            for (let i = 0; i < results.length; i++) {
+                if (results[i].department_name === answer.deptChoice) {
+                    chosenDept = results[i];
+                }
+            }
+            const query = 
+            'SELECT e.id, e.first_name AS "First Name", e.last_name AS "Last Name", r.title AS "Title", d.department_name AS "Department", r.salary AS "Salary" FROM employees e INNER JOIN roles r ON r.id = e.role_id INNER JOIN departments d ON d.id = r.department_id WHERE ?;';
+            connection.query(query, { department_name: chosenDept.department_name }, (err, res) => {
+                if (err) throw err;
+                console.log(' ');
+                console.table(chalk.yellow(`All Employees by Department: ${chosenDept.department_name}`), res)
+                startApp();
+            })
+        })
+    })
 }
