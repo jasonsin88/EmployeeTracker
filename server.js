@@ -278,3 +278,134 @@ const updateRole = () => {
     })
 }
 
+// viewing roles
+const viewRoles = () => {
+    let query = `SELECT title AS "Title" FROM roles`;
+    connection.query(query, (err, results) => {
+        if (err) throw err;
+        console.log(' ');
+        console.table(chalk.yellow('All Roles'), results);
+        startApp();
+    })
+}
+
+// adding a role
+const addRole = () => {
+    const addRoleQuery = `SELECT * FROM roles; SELECT * FROM departments`
+    connection.query(addRoleQuery, (err, results) => {
+        if (err) throw err;
+        console.log('');
+        console.table(chalk.yellow('List of current Roles:'), results[0]);
+        inquirer.prompt([
+            {
+                name: 'newTitle',
+                type: 'input',
+                message: 'Enter the new Title:'
+            },
+            {
+                name: 'newSalary',
+                type: 'input',
+                message: 'Enter the salary for the new Title:'
+            },
+            {
+                name: 'dept',
+                type: 'list',
+                choices: function () {
+                    let choiceArray = results[1].map(choice => choice.department_name);
+                    return choiceArray;
+                },
+                message: 'Select the Department for this new Title:'
+            }
+        ])
+        .then((answer) => {
+            connection.query(
+                `INSERT INTO roles(title, salary, department_id) 
+                VALUES
+                ("${answer.newTitle}", "${answer.newSalary}", 
+                (SELECT id FROM departments WHERE department_name = "${answer.dept}"));`
+            )
+            startApp();
+        })
+    })
+}
+
+// removing a role
+removeRole = () => {
+    query = `SELECT * FROM roles`;
+    connection.query(query, (err, results) => {
+        if (err) throw err;
+        inquirer.prompt([
+            {
+                name: 'removeRole',
+                type: 'list',
+                choices: function () {
+                    let choiceArray = results.map(choice => choice.title);
+                    return choiceArray;
+                },
+                message: 'Select a Role to remove:'
+            }
+        ])
+        .then((answer) => {
+            connection.query(`DELETE FROM roles WHERE ? `, { title: answer.removeRole });
+            startApp();
+        })
+    })
+}
+
+// view departments
+const viewDept = () => {
+    query = `SELECT department_name AS "Departments" FROM departments`;
+    connection.query(query, (err, results) => {
+        if (err) throw err;
+        console.log('');
+        console.table(chalk.yellow('All Departments'), results)
+        startApp();
+    })
+}
+
+// adding a department
+const addDept = () => {
+    query = `SELECT department_name AS "Departments" FROM departments`;
+    connection.query(query, (err, results) => {
+        if (err) throw err;
+        console.log('');
+        console.table(chalk.yellow('List of current Departments'), results);
+        inquirer.prompt([
+            {
+                name: 'newDept',
+                type: 'input',
+                message: 'Enter the name of the Department to add:'
+            }
+        ])
+        .then((answer) => {
+            connection.query(`INSERT INTO departments(department_name) VALUES( ? )`, answer.newDept)
+            startApp();
+        })
+    })
+}
+
+// removing a department
+const removeDept = () => {
+    query = `SELECT * FROM departments`;
+    connection.query(query, (err, results) => {
+        if (err) throw err;
+        inquirer.prompt([
+            {
+                name: 'dept',
+                type: 'list',
+                choices: function () {
+                    let choiceArray = results.map(choice => choice.department_name);
+                    return choiceArray;
+                },
+                message: 'Select the department to remove:'
+            }
+        ])
+        .then((answer) => {
+            connection.query(`DELETE FROM departments WHERE ? `, { department_name: answer.dept })
+            startApp();
+        })
+    })
+}
+
+// restarting the app
+startApp();
