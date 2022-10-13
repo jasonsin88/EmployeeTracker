@@ -32,11 +32,10 @@ const addEmployeeQuestions = [
   'What is their role?', 
   'Who is their manager?'
 ]
-// const roleQuery = 'SELECT * from roles; SELECT CONCAT (e.first_name," ",e.last_name) AS full_name, r.title, d.department_name FROM employees e INNER JOIN roles r ON r.id = e.role_id INNER JOIN departments d ON d.id = r.department_id WHERE department_name = "Management"'
 const roleQuery = 'SELECT * from roles; SELECT CONCAT (e.first_name," ",e.last_name) AS full_name FROM employees e'
 const mgrQuery = 'SELECT CONCAT (e.first_name," ",e.last_name) AS full_name, r.title, d.department_name FROM employees e INNER JOIN roles r ON r.id = e.role_id INNER JOIN departments d ON d.id = r.department_id WHERE department_name = "Management";'
 
-console.log(chalk.magenta(`
+console.log(chalk.bold.magentaBright(`
  _______             _                           ______                                      
 |  _____)           | |                         |       |                                     
 | |___   ____  ____ | | ___  _   _  ____ ____   |  /-|  | ____ ____   ____  ____  ____  ____ 
@@ -102,7 +101,7 @@ const showAll = () => {
   connection.query(allEmployeeQuery, (err, results) => {
       if (err) throw err;
       console.log(' ');
-      console.table(chalk.blue('All Employees'), results)
+      console.table(chalk.bold.yellow('All Employees'), results)
       startApp();
   })
 }
@@ -132,7 +131,7 @@ const showByDept = () => {
           connection.query(query, { department_name: chosenDept.department_name }, (err, res) => {
               if (err) throw err;
               console.log(' ');
-              console.table(chalk.blue(`All Employees by Department: ${chosenDept.department_name}`), res)
+              console.table(chalk.bold.yellow(`All Employees by Department: ${chosenDept.department_name}`), res)
               startApp();
           })
       })
@@ -165,7 +164,7 @@ const showByManager = () => {
           connection.query(mgrQuery2, [answer.mgr_choice], (err, results) => {
               if (err) throw err;
               console.log(' ');
-              console.table(chalk.blue('Employees by Manager'), results);
+              console.table(chalk.bold.yellow('Employees by Manager'), results);
               startApp();
           })
       })
@@ -221,7 +220,7 @@ const removeEmployee = () => {
   connection.query(allEmployeeQuery, (err, results) => {
       if (err) throw err;
       console.log(' ');
-      console.table(chalk.blue('All Employees'), results)
+      console.table(chalk.bold.yellow('All Employees'), results)
       inquirer.prompt([
           {
               name: 'IDtoRemove',
@@ -274,7 +273,7 @@ const viewRoles = () => {
       if (err) throw err;
 
       console.log(' ');
-      console.table(chalk.blue('All Roles'), results);
+      console.table(chalk.bold.yellow('All Roles'), results);
       startApp();
   })
 
@@ -285,7 +284,7 @@ const addRole = () => {
   connection.query(addRoleQuery, (err, results) => {
       if (err) throw err;
       console.log('');
-      console.table(chalk.blue('List of current Roles:'), results[0]);
+      console.table(chalk.bold.yellow('List of current Roles:'), results[0]);
       inquirer.prompt([
           {
               name: 'newTitle',
@@ -344,7 +343,7 @@ const viewDept = () => {
   connection.query(query, (err, results) => {
       if (err) throw err;
       console.log('');
-      console.table(chalk.blue('All Departments'), results)
+      console.table(chalk.bold.yellow('All Departments'), results)
       startApp();
   })
 }
@@ -354,7 +353,7 @@ const addDept = () => {
   connection.query(query, (err, results) => {
       if (err) throw err;
       console.log('');
-      console.table(chalk.blue('List of current Departments'), results);
+      console.table(chalk.bold.yellow('List of current Departments'), results);
       inquirer.prompt([
           {
               name: 'newDept',

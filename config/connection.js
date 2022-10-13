@@ -12,11 +12,11 @@ connection = mysql.createConnection({
 
 connection.connect((err) => {
     if (err) {
-        console.log(chalk.white.bgRed(err));
+        console.log(chalk.bold.white.bgRed(err));
         return;
     }
 
-    console.log(chalk.red(`Connected to db. ThreadID: ${connection.threadId}`));
+    console.log(chalk.bold.greenBright(`Connected to db. ThreadID: ${connection.threadId}`));
 })
 
 module.exports = connection;
