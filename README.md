@@ -1,6 +1,7 @@
 # Employee Tracker
 
 ## Description
+A command-line application that allows the user to manage their employees. Functionality includes viewing, adding, deleting, and editing employees, their roles, and departments.
 
 ## Table of Contents
 * [Technologies](#technologies)
