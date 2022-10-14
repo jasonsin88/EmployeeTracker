@@ -97,6 +97,7 @@ const startApp = () => {
   })
 }
 
+// show all employees
 const showAll = () => {
   connection.query(allEmployeeQuery, (err, results) => {
       if (err) throw err;
@@ -106,6 +107,7 @@ const showAll = () => {
   })
 }
 
+// show employees, filtered by department
 const showByDept = () => {
   const deptQuery = 'SELECT * FROM departments';
   connection.query(deptQuery, (err, results) => {
@@ -138,6 +140,7 @@ const showByDept = () => {
   })
 }
 
+// show employees, filtered by manager
 const showByManager = () => {
   connection.query(mgrQuery, (err, results) => {
       if (err) throw err;
@@ -171,6 +174,7 @@ const showByManager = () => {
   })
 }
 
+// add an employee to the employee roster
 const addEmployee = () => {
   connection.query(roleQuery, (err, results) => {
       if (err) throw err;
@@ -216,6 +220,7 @@ const addEmployee = () => {
   })
 }
 
+// delete an employee from the roster
 const removeEmployee = () => {
   connection.query(allEmployeeQuery, (err, results) => {
       if (err) throw err;
@@ -234,6 +239,7 @@ const removeEmployee = () => {
   })
 }
 
+// update the employee's role in the company
 const updateRole = () => {
   const query = `SELECT CONCAT (first_name," ",last_name) AS full_name FROM employees; SELECT title FROM roles`
   connection.query(query, (err, results) => {
@@ -267,6 +273,7 @@ const updateRole = () => {
   })
 }
 
+// view all the available roles in the company
 const viewRoles = () => {
   let query = `SELECT title AS "Title" FROM roles`;
   connection.query(query, (err, results) => {
@@ -279,6 +286,7 @@ const viewRoles = () => {
 
 }
 
+// add a new role to the company
 const addRole = () => {
   const addRoleQuery = `SELECT * FROM roles; SELECT * FROM departments`
   connection.query(addRoleQuery, (err, results) => {
@@ -317,6 +325,7 @@ const addRole = () => {
   })
 }
 
+// delete a role from the company
 removeRole = () => {
   query = `SELECT * FROM roles`;
   connection.query(query, (err, results) => {
@@ -338,6 +347,7 @@ removeRole = () => {
   })
 }
 
+// view the available departments in the company
 const viewDept = () => {
   query = `SELECT department_name AS "Departments" FROM departments`;
   connection.query(query, (err, results) => {
@@ -348,6 +358,7 @@ const viewDept = () => {
   })
 }
 
+// add a new department to the company
 const addDept = () => {
   query = `SELECT department_name AS "Departments" FROM departments`;
   connection.query(query, (err, results) => {
@@ -367,6 +378,7 @@ const addDept = () => {
   })
 }
 
+// delete a department from the company
 const removeDept = () => {
   query = `SELECT * FROM departments`;
   connection.query(query, (err, results) => {

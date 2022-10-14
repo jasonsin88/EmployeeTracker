@@ -1,6 +1,7 @@
 const mysql = require('mysql2');
 const chalk = require('chalk');
 
+// connect to MySQL
 connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
