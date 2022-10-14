@@ -23,21 +23,18 @@ git clone git@github.com:jasonsin88/EmployeeTracker.git
 ```
 Prior to running the application, make sure that you have Node.js and MySQL installed on your computer
 
-Install dependencies
+Install dependencies:
 ```
 npm i
 ```
 
-Open up MySQL shell, execute the following commands
+Open up MySQL shell, execute the following commands:
 ```
 source db/schema.sql
-```
-and
-```
 source db/seed.sql
 ```
 
-After which, quit MySQL shell and input the following to run the application
+After which, quit MySQL shell and input the following to run the application:
 ```
 node server.js
 ```
