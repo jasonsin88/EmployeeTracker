@@ -43,6 +43,7 @@ node server.js
 ```
 
 ## Usage
+Watch a demo video [here](https://youtu.be/StOPt8wzXhI)
 
 ## License
 This project is licensed under MIT <br />
